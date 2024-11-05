@@ -1,6 +1,6 @@
 from profanity_check import predict
 import guardrails as gd
-from guardrails.validators import Validator, EventDetail, register_validator
+from guardrails.validators import Validator, register_validator 
 from typing import Dict, List
 from rich import print
 import openai
@@ -11,13 +11,26 @@ import os
 load_dotenv()
 
 def without_guardrails(text):
+    ''' # Outdated OPEN API documentation
     response = openai.Completion.create(
         prompt="Translate the texts to English language\n"+text,
         engine="text-davinci-003",
         max_tokens=2048,
         temperature=0)
+    '''
+    # Updated documentation
+    prompt = f"Translate the following text to English\n{text}"
+    response = openai.chat.Completion.create(
+        model="gpt-3.5-turbo",  # or "gpt-4" if you're using GPT-4
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=2048,
+        temperature=0
+    )
 
-    result = response['choices'][0]['text']
+    result = response['choices'][0]['content']
     return result
 
 
