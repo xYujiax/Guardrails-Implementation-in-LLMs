@@ -10,9 +10,6 @@ import os
 
 load_dotenv()
 
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
 def without_guardrails(text):
     response = openai.Completion.create(
         prompt="Translate the texts to English language\n"+text,
