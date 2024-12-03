@@ -103,6 +103,7 @@ def main():
                 openai.Completion.create,
                 prompt_params={"statement_to_be_translated": text_area},
                 engine="text-davinci-003",
+                max_tokens=2048,
                 temperature=0)
 
             st.success(f"Validated Output: {validated_response}")

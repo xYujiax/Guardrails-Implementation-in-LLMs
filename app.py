@@ -7,18 +7,7 @@ from guardrails import Guard
 from guardrails.hub import ProfanityFree # requires api key 
 from rich import print
 
-from typing import Any, Dict
-
-from guardrails.validator_base import (
-    FailResult,
-    PassResult,
-    ValidationResult,
-    Validator,
-    register_validator,
-    ErrorSpan
-)
-
-from profanity_check import predict
+from fucketh import Fucketh
 
 # read and load variable from .env into this app's py env
 load_dotenv("apikey.env") 
@@ -61,97 +50,21 @@ def with_hub_guardrails(output):
 
 def with_og_guardrails(output):
     """
-    Apply sexy custom-made guardrails to LLM response
+    Apply sexy(?) custom-made guardrail to LLM response
 
     ARGS:
         output (str): raw LLM output to apply guardrails on
     """
-    guard = Guard().use(fuck)
+    guard = Guard().use(Fucketh)
+    
+    # If validation passes, print out the message. If not, don't write the message
     if guard.validate(output).validation_passed:
         st.success(output)
     else:
-        st.error("I would not dare translate such profane blasphemy.")
+        st.error("I would not dare translate such blasphemy.")
     return 
- 
-@register_validator(name="is-profanity-free", data_type="string")
-class fuck(Validator):
 
-    def validate(self, value: Any, metadata: Dict) -> ValidationResult:
-        prediction = predict([value])
-        if prediction[0] == 1:
-            return FailResult(
-                error_message=f"{value} contains profanity. "
-                f"Please return profanity-free output.",
-                fix_value="",
-                error_spans=[
-                    ErrorSpan(
-                        start=0,
-                        end=len(value),
-                        reason="This text contains profanity."
-                    )
-                ]
-            )
-        return PassResult()   
 
-rail_str = """
-<rail version="0.1">
-
-<script language='python'>
-from typing import Any, Dict
-
-from guardrails.validator_base import (
-    FailResult,
-    PassResult,
-    ValidationResult,
-    Validator,
-    register_validator,
-    ErrorSpan
-)
-
-from profanity_check import predict
-
-@register_validator(name="is-profanity-free", data_type="string")
-class ProfanityFree(Validator):
-    def validate(self, value: Any, metadata: Dict) -> ValidationResult:
-        prediction = predict([value])
-        if prediction[0] == 1:
-            return FailResult(
-                error_message=f"{value} contains profanity. "
-                f"Please return profanity-free output.",
-                fix_value="",
-                error_spans=[
-                    ErrorSpan(
-                        start=0,
-                        end=len(value),
-                        reason="This text contains profanity."
-                    )
-                ]
-            )
-        return PassResult()
-</script>
-
-<output>
-    <string
-        name="translated_statement"
-        description="Translate the given statement into english language"
-        format="is-profanity-free"
-        on-fail-is-profanity-free="fix" 
-    />
-</output>
-
-<prompt>
-Translate the given statement into english language:
-{{statement_to_be_translated}}
-@complete_json_suffix
-</prompt>
-
-</rail>
-"""
-
-#guard = gd.Guard.from_rail_string(rail_str)
-
-#guard = Guard().use(ProfanityFree)
-#guard = Guard().use(fuck)
 def main():
 
     st.title("Guardrails Implementation in LLMs")
@@ -166,7 +79,7 @@ def main():
             without_guardrails_result = without_guardrails(text_area)
             
             
-            #without_guardrails_result = 'fuck you and ur mom'
+            #without_guardrails_result = ""
             
             st.success(without_guardrails_result)
             
