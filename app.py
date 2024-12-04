@@ -76,10 +76,10 @@ def main():
             st.info(text_area) # just prints the information
 
             st.warning("Tanslated Response Without Guardrails")
-            without_guardrails_result = without_guardrails(text_area)
+            #without_guardrails_result = without_guardrails(text_area)
             
             
-            #without_guardrails_result = ""
+            without_guardrails_result = "You're fucking awesome"
             
             st.success(without_guardrails_result)
             
