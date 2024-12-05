@@ -5,28 +5,43 @@ NOTE: This replication project requires an OpenAI AND Guardrails AI API key.
 1. To run this application in your virtual environment, please run the following line in terminal:
 ```pip install -r requirements.txt```
 This contains the following dependencies:
-alt-profanity-check
-openai
-guardrails-ai   
-tf-keras
-transformers
-pandas
-tabulate
-If you do not already have streamlit installed, please also run ```pip install streamlit```
+
+
+      alt-profanity-check
+      
+      openai
+      
+      guardrails-ai   
+      
+      tf-keras 
+      
+      transformers
+      
+      pandas
+      
+      tabulate
+
+      If you do not already have streamlit installed, please also run ```pip install streamlit```
+
 
 3. [Obtain API key from OpenAI](https://openai.com/index/openai-api/) **(costs $5 - pls email me if you want me to send you my api-key instead)**
    * After obtaining API key, create a file ```apikey.env``` and enter the following line in said file:
+     
      ```OPENAI_API_KEY = "replace-with-openai-api-key"```
      
-4. We will be also be using Guardrails AI's default guardrail. [Please obtain an API key (this one's free!)](https://hub.guardrailsai.com/keys)
+     
+4. We will be also be a profanity guardrail from Guardrails AI's opensource library. [Please obtain an API key (this one's free!)](https://hub.guardrailsai.com/keys)
    * After obtaining API key, please run the following in terminal:
+     
      ```guardrails configure```
      
-     This will prompt you to input a token. When that happens, paste your Guardrails AI API key (surrounded by quotation marks) into terminal and hit ```Enter```:
+     This will prompt you to input a token. When that happens, paste your Guardrails AI API key (surrounded by quotation marks) into terminal and hit ```Enter```
+     
      
 5. Now we have all the dependencies required to start our streamlit application! In terminal, type the following:
    ```streamlit run app.py```
    You should be able to open the app on your local browser now.
+   
    
 7. Please play with the app! If you input something profane to be translated, the default guardrail should catch that and raise and error. The custom guardrail should only catch profanity if used in a negative context. **Note, every time you press the ```translate``` button, your input is sent to OpenAI and eats away at your OpenAI credits, so beware.
 
