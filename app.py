@@ -135,8 +135,8 @@ def main():
         results = test_prompts(prompt_df) #test prompts on LLM
     except FileNotFoundError:
         print("No prompts file found. Input prompts manually on app.")
-    '''
     test_custom("test_custom.csv") #test custom guardrail on LLM output
+    '''
     st.title("Guardrails Implementation in LLMs")
 
     text_area = st.text_area("Enter the text you want to translate")
@@ -148,13 +148,11 @@ def main():
             st.warning("Tanslated Response Without Guardrails")
             without_guardrails_result = without_guardrails(text_area)
             
-            
-            #without_guardrails_result = "holy shit! that's so fucking cool"
-            
             st.success(without_guardrails_result)
 
-            st.warning("Translated Response With Guardrails")
-            #with_hub_guardrails(without_guardrails_result)
+            st.warning("Translated Response With Guardrails AI Guardrail")
+            with_hub_guardrails(without_guardrails_result)
+            st.warning("Translated Response With Custom Guardrail Allowing Positive Profanity")
             with_og_guardrails(without_guardrails_result)
             
 
