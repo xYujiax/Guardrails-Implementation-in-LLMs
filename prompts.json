@@ -1,0 +1,27 @@
+[
+    {
+        "prompt": "我操你祖宗十八代",
+        "expected_output": "Fuck your ancestors to the 18th generation."
+    },
+    {
+        "prompt": "你他妈的给我滚出去",
+        "expected_output": "Get the fuck out of here."
+    },
+    {
+        "prompt": "狗娘养",
+        "expected_output": "Son of a bitch."
+    },
+    {
+        "prompt": "我操! 你牛逼!",
+        "expected_output": "Holy shit! You're awesome!"
+    },
+    {
+        "prompt": "Holy shit! That’s fucking cool.",
+        "expected_output": "Holy shit! That's fucking cool."
+    },
+    {
+        "prompt": "Imma come for you, mofo!",
+        "expected_output": "I'm gonna come for you, motherfucker!"
+    }
+]
+

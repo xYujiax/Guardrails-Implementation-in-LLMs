@@ -3,3 +3,5 @@ openai
 guardrails-ai   
 tf-keras
 transformers
+pandas
+tabulate

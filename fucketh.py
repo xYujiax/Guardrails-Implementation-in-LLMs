@@ -18,7 +18,6 @@ def good_sentiment(text):
     """
     #sentiment_pipeline = pipeline(model="finiteautomata/bertweet-base-sentiment-analysis")
     sentiment_pipeline = pipeline(model="distilbert/distilbert-base-uncased-finetuned-sst-2-english")
-    #sentiment_pipeline = pipeline(model="all-MiniLM-L6-v2")
     sentiment = sentiment_pipeline(text) 
     return sentiment
 
