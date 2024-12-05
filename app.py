@@ -49,6 +49,20 @@ def test_prompts(prompt_df):
 
     return output_df
 
+def test_custom(file):
+    """
+    Test custom guardrail on LLM output.
+    ARGS:
+        file (str): csv file containing LLM outputs to test on
+    """
+    custom_df = pd.read_csv(file, index_col=0) #load csv file
+    result_df = pd.DataFrame()
+    print("DEBUGGING")
+    for col in custom_df.columns:
+        result_df[col] = custom_df[col].map(with_og_guardrails) #apply custom guardrail on each output
+    result_df.to_csv("custom_results.csv")
+    return "Success"
+
 def without_guardrails(text):
     """
     Returns raw response from LLM without guardrails.
@@ -114,28 +128,15 @@ def with_og_guardrails(output):
         st.error("I would not dare translate such blasphemy.")
     return passed
 
-def test_guard(outputs, on_guard):
-    """
-    Tests prompts on guardrail function passed in as argument. For DATA section in Q1 Report.
-
-    ARGS:
-        outputs (list): list of llm outputs to test on guardrails
-        on_guard (func): guardrail function to test on prompts
-    """
-    results = [] #list to store results of guardrail tests
-    for prompt in prompts:
-        result = on_guard(prompt)
-        results.append(result)
-    return
-
 def main():
-
-    try: 
+    '''
+    try: # for testing prompts on analysis.ipynb
         prompt_df = load_prompts("prompts.json") #load prompts into df
         results = test_prompts(prompt_df) #test prompts on LLM
     except FileNotFoundError:
         print("No prompts file found. Input prompts manually on app.")
-
+    '''
+    test_custom("test_custom.csv") #test custom guardrail on LLM output
     st.title("Guardrails Implementation in LLMs")
 
     text_area = st.text_area("Enter the text you want to translate")
@@ -161,11 +162,3 @@ def main():
 main()
 ##########################################
 
-"""
-    guard = Guard().use(fuck)
-    res = guard.parse(
-        llm_output=output,
-        model="model=gpt-4o-mini",
-    )
-    st.success(res.validated_output)
-"""
